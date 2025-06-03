@@ -20,6 +20,8 @@ Spinning Joias é um catálogo de produtos que guarda dados de produtos em carri
 
 2. Crie um arquivo `.application.properties` na raíz do repositório, utilizando como modelo o `application.example.properties`, e insira seus respectivos valores.
 
+3. Execute: 
+
 ```
 ./mvnw spring-boot:run
 ```
