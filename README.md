@@ -61,7 +61,7 @@ Nele devem estar as configurações necessárias para rodar o projeto localmente
 
 ### 4. Executar a aplicação
 ````bash
-mvnw spring-boot:run
+./mvnw spring-boot:run
 ````
 
 ## 🧪 Testes
