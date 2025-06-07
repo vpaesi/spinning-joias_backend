@@ -66,8 +66,9 @@ public class CarrinhoController {
     }
 
     @DeleteMapping("/carrinho")
-    public ResponseEntity<String> limparCarrinho(SessionStatus status) {
-        status.setComplete(); // limpa a sessão
+    public ResponseEntity<String> limparCarrinho(@ModelAttribute("carrinho") Carrinho carrinho, SessionStatus status) {
+        carrinho.getItens().clear(); // Limpa os itens do carrinho
+        status.setComplete(); // Finaliza a sessão do carrinho
         return ResponseEntity.ok("Carrinho limpo.");
     }
 
