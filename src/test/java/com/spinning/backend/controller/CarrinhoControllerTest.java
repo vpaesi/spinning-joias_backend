@@ -33,7 +33,7 @@ public class CarrinhoControllerTest {
     }
 
     @Test
-    void adicionarProdutoECarrinhoRetornaInformacoes() {
+    void deveRetornaInformacoesDoCarrinhoComProduto() {
         ProdutoDTO produtoDTO = criarProdutoDTO(1L, "Produto Teste", 10.0);
         when(produtoService.buscarPorId(1L)).thenReturn(Optional.of(produtoDTO));
         Carrinho carrinho = new Carrinho();
@@ -54,7 +54,7 @@ public class CarrinhoControllerTest {
     }
 
     @Test
-    void adicionarEAtualizarQuantidadeProdutoNoCarrinho() {
+    void deveAtualizarQuantidadeProdutoNoCarrinho() {
         ProdutoDTO produtoDTO = criarProdutoDTO(1L, "Produto Teste", 10.0);
         when(produtoService.buscarPorId(1L)).thenReturn(Optional.of(produtoDTO));
         Carrinho carrinho = new Carrinho();
@@ -83,7 +83,7 @@ public class CarrinhoControllerTest {
     }
 
     @Test
-    void adicionarDoisProdutosEExcluirUm() {
+    void deveExcluirUmProdutoDoCarrinho() {
         ProdutoDTO produto1 = criarProdutoDTO(1L, "Produto 1", 10.0);
         ProdutoDTO produto2 = criarProdutoDTO(2L, "Produto 2", 20.0);
         when(produtoService.buscarPorId(1L)).thenReturn(Optional.of(produto1));
@@ -117,7 +117,7 @@ public class CarrinhoControllerTest {
     }
 
     @Test
-    void adicionarProdutoELimparCarrinho() {
+    void deveLimparCarrinho() {
         ProdutoDTO produtoDTO = criarProdutoDTO(1L, "Produto Teste", 10.0);
         when(produtoService.buscarPorId(1L)).thenReturn(Optional.of(produtoDTO));
         Carrinho carrinho = new Carrinho();
