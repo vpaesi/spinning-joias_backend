@@ -65,13 +65,6 @@ public class CarrinhoController {
         return ResponseEntity.ok(carrinho);
     }
 
-    @DeleteMapping("/carrinho")
-    public ResponseEntity<String> limparCarrinho(@ModelAttribute("carrinho") Carrinho carrinho, SessionStatus status) {
-        carrinho.getItens().clear(); // Limpa os itens do carrinho
-        status.setComplete(); // Finaliza a sessão do carrinho
-        return ResponseEntity.ok("Carrinho limpo.");
-    }
-
     @DeleteMapping("/carrinho/{indice}")
     public ResponseEntity<String> removerItem(@PathVariable int indice,
             @ModelAttribute("carrinho") Carrinho carrinho) {
@@ -83,7 +76,7 @@ public class CarrinhoController {
         return ResponseEntity.ok("Item removido com sucesso.");
     }
 
-    @PostMapping("/carrinho/limpar")
+    @DeleteMapping("/carrinho/limpar")
     public ResponseEntity<Void> limparCarrinho(@ModelAttribute("carrinho") Carrinho carrinho, SessionStatus sessionStatus) {
         carrinho.getItens().clear(); // Limpa os itens do carrinho
         sessionStatus.setComplete(); // Finaliza a sessão do carrinho
