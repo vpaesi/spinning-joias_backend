@@ -82,4 +82,11 @@ public class CarrinhoController {
         return ResponseEntity.ok("Item removido com sucesso.");
     }
 
+    @PostMapping("/carrinho/limpar")
+    public ResponseEntity<Void> limparCarrinho(@ModelAttribute("carrinho") Carrinho carrinho, SessionStatus sessionStatus) {
+        carrinho.getItens().clear(); // Limpa os itens do carrinho
+        sessionStatus.setComplete(); // Finaliza a sessão do carrinho
+        return ResponseEntity.ok().build();
+    }
+
 }
