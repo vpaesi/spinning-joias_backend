@@ -1,14 +1,17 @@
 package com.spinning.backend.controller;
 
 import com.spinning.backend.dto.CarrinhoDTO;
+import com.spinning.backend.dto.CarrinhoResponseDTO;
 import com.spinning.backend.dto.ProdutoDTO;
 import com.spinning.backend.model.Carrinho;
 import com.spinning.backend.model.ItemCarrinho;
 import com.spinning.backend.service.ProdutoService;
+import com.spinning.backend.service.FreteService;
 import jakarta.validation.Valid;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -19,6 +22,9 @@ import org.springframework.web.bind.support.SessionStatus;
 public class CarrinhoController {
 
     private final ProdutoService produtoService;
+
+    @Autowired
+    private FreteService freteService;
 
     public CarrinhoController(ProdutoService produtoService) {
         this.produtoService = produtoService;
@@ -61,8 +67,13 @@ public class CarrinhoController {
     }
 
     @GetMapping("/carrinho")
-    public ResponseEntity<Carrinho> visualizarCarrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
-        return ResponseEntity.ok(carrinho);
+    public ResponseEntity<CarrinhoResponseDTO> visualizarCarrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
+        CarrinhoResponseDTO dto = new CarrinhoResponseDTO();
+        dto.setItens(carrinho.getItens());
+        dto.setSubtotal(carrinho.getSubtotal());
+        dto.setFrete(carrinho.getFrete());
+        dto.setTotal(carrinho.getTotal());
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/carrinho/{indice}")
@@ -81,6 +92,14 @@ public class CarrinhoController {
         carrinho.getItens().clear(); // Limpa os itens do carrinho
         sessionStatus.setComplete(); // Finaliza a sessão do carrinho
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/carrinho/frete")
+    public ResponseEntity<Double> calcularFrete(@RequestParam String cep,
+                                            @ModelAttribute("carrinho") Carrinho carrinho) {
+        double valorFrete = freteService.calcularFrete(cep);
+        carrinho.setFrete(valorFrete);
+        return ResponseEntity.ok(valorFrete);
     }
 
 }

@@ -4,6 +4,7 @@ import com.spinning.backend.dto.CarrinhoDTO;
 import com.spinning.backend.dto.ProdutoDTO;
 import com.spinning.backend.model.Carrinho;
 import com.spinning.backend.service.ProdutoService;
+import com.spinning.backend.dto.CarrinhoResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class CarrinhoControllerTest {
         assertEquals(1, carrinho.getItens().size());
         assertEquals(20.0, carrinho.getTotal());
 
-        ResponseEntity<Carrinho> responseGet = carrinhoController.visualizarCarrinho(carrinho);
+        ResponseEntity<CarrinhoResponseDTO> responseGet = carrinhoController.visualizarCarrinho(carrinho);
         assertEquals(200, responseGet.getStatusCode().value());
         assertEquals(1, responseGet.getBody().getItens().size());
         assertEquals(20.0, responseGet.getBody().getTotal());
@@ -77,7 +78,7 @@ public class CarrinhoControllerTest {
         assertEquals(1, carrinho.getItens().get(0).getQuantidade());
         assertEquals(10.0, carrinho.getTotal());
 
-        ResponseEntity<Carrinho> responseGet = carrinhoController.visualizarCarrinho(carrinho);
+        ResponseEntity<CarrinhoResponseDTO> responseGet = carrinhoController.visualizarCarrinho(carrinho);
         assertEquals(1, responseGet.getBody().getItens().size());
         assertEquals(10.0, responseGet.getBody().getTotal());
     }
@@ -111,7 +112,7 @@ public class CarrinhoControllerTest {
         assertEquals("Produto 2", carrinho.getItens().get(0).getNomeProduto());
         assertEquals(40.0, carrinho.getTotal());
 
-        ResponseEntity<Carrinho> responseGet = carrinhoController.visualizarCarrinho(carrinho);
+        ResponseEntity<CarrinhoResponseDTO> responseGet = carrinhoController.visualizarCarrinho(carrinho);
         assertEquals(1, responseGet.getBody().getItens().size());
         assertEquals(40.0, responseGet.getBody().getTotal());
     }
@@ -137,7 +138,7 @@ public class CarrinhoControllerTest {
         assertEquals(0, carrinho.getItens().size());
         assertEquals(0.0, carrinho.getTotal());
 
-        ResponseEntity<Carrinho> responseGet = carrinhoController.visualizarCarrinho(carrinho);
+        ResponseEntity<CarrinhoResponseDTO> responseGet = carrinhoController.visualizarCarrinho(carrinho);
         assertEquals(0, responseGet.getBody().getItens().size());
         assertEquals(0.0, responseGet.getBody().getTotal());
     }
