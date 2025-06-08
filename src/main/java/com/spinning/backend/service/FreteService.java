@@ -16,7 +16,7 @@ public class FreteService {
             return 25.0; // Sudeste
         } else if (prefixo >= 80 && prefixo <= 99) {
             return 15.0; // Sul
-        } else if ((prefixo >= 70 && prefixo <= 73) || (prefixo >= 74 && prefixo <= 76) || prefixo == 79) {
+        } else if ((prefixo >= 70 && prefixo <= 73) || (prefixo >= 74 && prefixo <= 76) || prefixo == 79 || prefixo == 78) {
             return 35.0; // Centro-Oeste
         } else if ((prefixo >= 40 && prefixo <= 49) || (prefixo >= 50 && prefixo <= 59)
                 || (prefixo >= 60 && prefixo <= 64)) {

@@ -22,7 +22,7 @@ public class CarrinhoControllerTest {
     @BeforeEach
     void setUp() {
         produtoService = mock(ProdutoService.class);
-        carrinhoController = new CarrinhoController(produtoService);
+        carrinhoController = new CarrinhoController(produtoService, null);
     }
 
     private ProdutoDTO criarProdutoDTO(Long id, String nome, double preco) {

@@ -11,7 +11,6 @@ import jakarta.validation.Valid;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -23,11 +22,11 @@ public class CarrinhoController {
 
     private final ProdutoService produtoService;
 
-    @Autowired
-    private FreteService freteService;
+    private final FreteService freteService;
 
-    public CarrinhoController(ProdutoService produtoService) {
+    public CarrinhoController(ProdutoService produtoService, FreteService freteService) {
         this.produtoService = produtoService;
+        this.freteService = freteService;
     }
 
     @ModelAttribute("carrinho")
@@ -88,7 +87,8 @@ public class CarrinhoController {
     }
 
     @DeleteMapping("/carrinho/limpar")
-    public ResponseEntity<Void> limparCarrinho(@ModelAttribute("carrinho") Carrinho carrinho, SessionStatus sessionStatus) {
+    public ResponseEntity<Void> limparCarrinho(@ModelAttribute("carrinho") Carrinho carrinho,
+            SessionStatus sessionStatus) {
         carrinho.getItens().clear(); // Limpa os itens do carrinho
         sessionStatus.setComplete(); // Finaliza a sessão do carrinho
         return ResponseEntity.ok().build();
@@ -96,7 +96,7 @@ public class CarrinhoController {
 
     @PostMapping("/carrinho/frete")
     public ResponseEntity<Double> calcularFrete(@RequestParam String cep,
-                                            @ModelAttribute("carrinho") Carrinho carrinho) {
+            @ModelAttribute("carrinho") Carrinho carrinho) {
         double valorFrete = freteService.calcularFrete(cep);
         carrinho.setFrete(valorFrete);
         return ResponseEntity.ok(valorFrete);
